@@ -1,0 +1,47 @@
+type Product {
+  id: ID!
+  productName: String
+  unitPrice: Float!
+}
+
+type ProductInCart {
+  id: ID!
+  productName: String!
+  unitPrice: Float!
+  quantity: Int!
+}
+
+type Cart {
+  id: ID!
+  products: [Product]
+  totalSum: Float!
+}
+
+type DeletedCart {
+  deletedId: ID
+  success: Boolean
+}
+
+type DeletedProduct {
+  deletedId: ID
+  success: Boolean
+}
+
+type Query {
+  getProduct(productId: ID!): Product
+  getAllProducts: [Product]
+  getCart(cartId: ID): Cart
+}
+
+type Mutation {
+  addProductToCart(cartId: ID!, productId: ID!): Cart!
+  deletedCart(cartId: ID): DeletedCart
+  deleteProduct(productId: ID): DeletedProduct
+  deleteProductFromCart(cartId: ID!, producInCartId: ID!): Cart!
+  createCart: Cart!
+}
+
+input productToCart {
+  cartId: ID
+  productId: ID
+}
