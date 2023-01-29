@@ -1,19 +1,19 @@
 type Product {
   id: ID!
-  productName: String
-  unitPrice: Float!
+  name: String
+  price: Float!
 }
 
-type ProductInCart {
+type CartItem {
   id: ID!
-  productName: String!
-  unitPrice: Float!
+  name: String!
+  price: Float!
   quantity: Int!
 }
 
 type Cart {
   id: ID!
-  products: [Product]
+  items: [CartItem]
   totalSum: Float!
 }
 
@@ -34,14 +34,10 @@ type Query {
 }
 
 type Mutation {
+  #addItemToCart(cartId: ID!, productId: ID!): Cart!
   addProductToCart(cartId: ID!, productId: ID!): Cart!
-  deletedCart(cartId: ID): DeletedCart
+  deleteCart(cartId: ID): DeletedCart
   deleteProduct(productId: ID): DeletedProduct
-  deleteProductFromCart(cartId: ID!, producInCartId: ID!): Cart!
+  deleteProductFromCart(cartId: ID!, cartItemId: ID!): Cart!
   createCart: Cart!
-}
-
-input productToCart {
-  cartId: ID
-  productId: ID
 }
